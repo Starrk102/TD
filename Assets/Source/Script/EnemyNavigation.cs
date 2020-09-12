@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyNavigation : MonoBehaviour
 {
     public UniversalScriptableObject EnemyScriptableObject;
+    public UniversalScriptableObject GreatTowerScriptableObject;
     private Transform targetEnemy;
     private int wavepointIndex;
     private float speed;
@@ -31,11 +32,17 @@ public class EnemyNavigation : MonoBehaviour
     {
         if (wavepointIndex >= Waypoints.WayPoint.Length - 1)
         {
-            Destroy(gameObject);
+            EndPath();
             return;
         }
 
         wavepointIndex++;
         targetEnemy = Waypoints.WayPoint[wavepointIndex];
+    }
+
+    void EndPath()
+    {
+        GameObject.FindGameObjectWithTag("GreatTower").GetComponent<GreatTower>().ApplyDamage(gameObject.GetComponent<Enemy>().DamageToGreatTower());
+        Destroy(gameObject);
     }
 }

@@ -25,11 +25,15 @@ public class UniversalScriptableObject : ScriptableObject
     [SerializeField]
     public int DamageTower;
     [SerializeField]
-    public int DamagePerSecondTower;
+    public float DamagePerSecondTower;
+    [SerializeField]
+    public float RangeTower;
     [SerializeField]
     public int WaveCount;
     [SerializeField]
-    public int PauseBetweenWaves;
+    public float PauseBetweenWaves;
+    [SerializeField]
+    public int MaxWave;
 
     //по такому же принципу добавить доп. свойства объекту
 
@@ -61,49 +65,49 @@ public class UniversalScriptableObject : ScriptableObject
             return g_HealthGreatTower;
         }
     }
-    public float g_DamageToGreatTower
+    public int g_DamageToGreatTower
     {
         get
         {
             return g_DamageToGreatTower;
         }
     }
-    public float g_UpgraideCost
+    public int g_UpgraideCost
     {
         get
         {
             return g_UpgraideCost;
         }
     }   
-    public float g_AllGold
+    public int g_AllGold
     {
         get
         {
             return g_AllGold;
         }
     }   
-    public float g_GoldPerKillEnemy
+    public int g_GoldPerKillEnemy
     {
         get
         {
             return g_GoldPerKillEnemy;
         }
     }   
-    public float g_DamageTower
+    public int g_DamageTower
     {
         get
         {
             return g_DamageTower;
         }
     }    
-    public float g_DamagePerSecondTower
+    public int g_DamagePerSecondTower
     {
         get
         {
             return g_DamagePerSecondTower;
         }
     }
-    public float g_WaveCount
+    public int g_WaveCount
     {
         get
         {
@@ -115,6 +119,13 @@ public class UniversalScriptableObject : ScriptableObject
         get
         {
             return g_PauseBetweenWaves;
+        }
+    }
+    public int g_MaxWave
+    {
+        get
+        {
+            return g_MaxWave;
         }
     }
 }

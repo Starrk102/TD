@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Obj: {fileID: 1675764562015617058, guid: dbbe1dc47b708c94987956687463b27d, type: 3}
   ObjSpeed: 6
-  HealthEnemy: 100
-  HealthGreatTower: 20
+  HealthEnemy: 1
+  HealthGreatTower: 0
   DamageToGreatTower: 1
   UpgraideCost: 0
   AllGold: 0
   GoldPerKillEnemy: 5
   DamageTower: 0
   DamagePerSecondTower: 0
-  WaveCount: 0
-  PauseBetweenWaves: 0
+  RangeTower: 0
+  WaveCount: 3
+  PauseBetweenWaves: 5
+  MaxWave: 3

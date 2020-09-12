@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa60c8861d32c2498832dcf3e6b91b2, type: 3}
   m_Name: GreatTower
   m_EditorClassIdentifier: 
-  obj: {fileID: 0}
-  objSpeed: 0
+  Obj: {fileID: 2549090987945096275, guid: 8fa19b7c1e15c0d41817c4f55c1347e2, type: 3}
+  ObjSpeed: 0
   HealthEnemy: 0
-  HealthGreatTower: 0
+  HealthGreatTower: 20
   DamageToGreatTower: 0
   UpgraideCost: 0
-  AllGold: 0
+  AllGold: 100
   GoldPerKillEnemy: 0
   DamageTower: 0
   DamagePerSecondTower: 0
-  WayPoint: []
+  RangeTower: 0
+  WaveCount: 0
+  PauseBetweenWaves: 0
+  MaxWave: 0
