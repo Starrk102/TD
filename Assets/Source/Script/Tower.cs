@@ -5,8 +5,12 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public UniversalScriptableObject TowerScriptableObject;
+    public UniversalScriptableObject TowerUpgradeScriptableObject;
     private Transform target;
 
+    private GameObject greatTower;
+
+    private float damageTower;
     private float fireRate;
     private float fireCoundown;
     private LineRenderer lineRenderer;
@@ -15,6 +19,8 @@ public class Tower : MonoBehaviour
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         fireRate = TowerScriptableObject.DamagePerSecondTower;
+        damageTower = TowerScriptableObject.DamageTower;
+        greatTower = GameObject.FindGameObjectWithTag("GreatTower");
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
     private void UpdateTarget()
@@ -52,7 +58,7 @@ public class Tower : MonoBehaviour
         if (fireCoundown <= 0)
         {
             Shoot();
-            fireCoundown = 1.0f / fireRate;
+            fireCoundown = fireRate;
         }
 
         fireCoundown -= Time.deltaTime;
@@ -64,7 +70,7 @@ public class Tower : MonoBehaviour
         if(distanceToEnemy <= TowerScriptableObject.RangeTower)
         {
             StartCoroutine(CreateLineRender());
-            target.GetComponent<Enemy>().ApplyDamage(TowerScriptableObject.DamageTower);
+            target.GetComponent<Enemy>().ApplyDamage(damageTower);
         }
     }
 
@@ -77,5 +83,32 @@ public class Tower : MonoBehaviour
         lineRenderer.endWidth = 0.1f;
         yield return new WaitForSeconds(0.1f);
         lineRenderer.positionCount = 0;
+    }
+
+    public void DamageUpgrade()
+    {
+        var gold = greatTower.GetComponent<GreatTower>().AllGold();
+
+        if (gold > 50)
+        {
+            var sellGold = 50;
+            greatTower.GetComponent<GreatTower>().Gold(-sellGold);
+            damageTower += TowerUpgradeScriptableObject.DamageTower;
+        }
+    }
+
+    public void DPSUpgrade()
+    {
+        var gold = greatTower.GetComponent<GreatTower>().AllGold();
+
+        if (gold > 50)
+        {
+            if (fireRate > 0.1f)
+            {
+                var sellGold = 50;
+                greatTower.GetComponent<GreatTower>().Gold(-sellGold);
+                fireRate -= TowerUpgradeScriptableObject.DamagePerSecondTower;
+            }
+        }
     }
 }

@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class UIPlayer : MonoBehaviour
 {
     public UniversalScriptableObject GreatTowerScriptableObject;
-    private GameObject GO;
-    private GameObject GreatTower;
+    private GameObject go;
+    private GameObject greatTower;
+    private GameObject RestartUI;
     private Text t_gold;
     private Text t_health;
     private float gold;
@@ -15,14 +16,28 @@ public class UIPlayer : MonoBehaviour
 
     private void Start()
     {
-        GO = gameObject;
-        t_gold = GO.GetComponent<Transform>().GetChild(1).transform.GetChild(0).transform.GetComponent<Text>();
-        t_health = GO.GetComponent<Transform>().GetChild(0).transform.GetChild(0).transform.GetComponent<Text>();
-        GreatTower = GameObject.FindGameObjectWithTag("GreatTower");
+        go = gameObject;
+        t_gold = go.GetComponent<Transform>().GetChild(1).transform.GetChild(0).transform.GetComponent<Text>();
+        t_health = go.GetComponent<Transform>().GetChild(0).transform.GetChild(0).transform.GetComponent<Text>();
+        greatTower = GameObject.FindGameObjectWithTag("GreatTower");
+        RestartUI = GameObject.FindGameObjectWithTag("Respawn");
+        RestartUI.SetActive(false);
+        t_gold.text = gold.ToString();
+        health = greatTower.GetComponent<GreatTower>()._healthGreatTower();
+        t_health.text = health.ToString();
     }
+
+
     private void Update()
     {
-        gold = GreatTowerScriptableObject.AllGold + GreatTower.GetComponent<GreatTower>().AllGold();
-        t_gold.text = gold.ToString();
+        t_gold.text = greatTower.GetComponent<GreatTower>().AllGold().ToString();
+        health = greatTower.GetComponent<GreatTower>()._healthGreatTower();
+        t_health.text = health.ToString();
+
+        if(!greatTower.GetComponent<GreatTower>().IsAlive)
+        {
+            RestartUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 }

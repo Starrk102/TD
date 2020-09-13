@@ -11,16 +11,27 @@ public class GameInit : MonoBehaviour
     public UniversalScriptableObject EnemyScriptableObject;
     public UniversalScriptableObject EnemyUpgradeScriptableObject;
     private float countdown;
-    private int waveNumber = 1;
+    private int waveNumber;
 
     private bool NoSpawnEnemy;
 
+    private void Awake()
+    {
+        Screen.autorotateToLandscapeRight = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToLandscapeLeft = false;
+
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
     private void Start()
     {
+        Time.timeScale = 1;
         EnemyUpgradeScriptableObject.HealthEnemy = 0;
         EnemyUpgradeScriptableObject.GoldPerKillEnemy = 0;
         EnemyUpgradeScriptableObject.DamageToGreatTower = 0;
         countdown = 1.0f;
+        waveNumber = 1;
         InvokeRepeating("CheckEnemy", 0, 1f);
     }
 

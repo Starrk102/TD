@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,17 @@ public class GreatTower : MonoBehaviour
     private void Start()
     {
         healthGreatTower = GreatTowerScriptableObject.HealthGreatTower;
+        gold = GreatTowerScriptableObject.AllGold;
     }
     public bool IsAlive => healthGreatTower > 0;
 
     public void ApplyDamage(float damage)
     {
+        if(damage < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(damage));
+        }
+
         healthGreatTower -= damage;
     }
 
@@ -28,11 +35,8 @@ public class GreatTower : MonoBehaviour
         return gold;
     }
 
-    private void Update()
+    public float _healthGreatTower()
     {
-        if (!IsAlive)
-        {
-            Time.timeScale = 0f;
-        }
+        return healthGreatTower;
     }
 }
