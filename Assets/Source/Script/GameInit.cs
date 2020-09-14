@@ -12,7 +12,7 @@ public class GameInit : MonoBehaviour
     public UniversalScriptableObject EnemyUpgradeScriptableObject;
     private float countdown;
     private int waveNumber;
-
+    public int killEnemy;
     private bool NoSpawnEnemy;
 
     private void Awake()
@@ -94,5 +94,10 @@ public class GameInit : MonoBehaviour
     public int g_waveNumber()
     {
         return waveNumber;
+    }
+
+    public int g_killEnemy()
+    {
+        return killEnemy;
     }
 }
