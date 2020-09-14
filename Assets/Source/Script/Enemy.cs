@@ -11,13 +11,12 @@ public class Enemy : MonoBehaviour
     private float healthEnemy;
     private float goldPerKill;
     private float damageToGreatTower;
-    private GameObject go_restart;
-    private float killenemy;
+    private GameObject gameInit;
     
 
     private void Start()
     {
-        go_restart = GameObject.FindGameObjectWithTag("GameController");
+        gameInit = GameObject.FindGameObjectWithTag("GameController");
         healthEnemy = EnemyScriptableObject.HealthEnemy + EnemyUpgradeScriptableObject.HealthEnemy;
         goldPerKill = EnemyScriptableObject.GoldPerKillEnemy + EnemyUpgradeScriptableObject.GoldPerKillEnemy;
         damageToGreatTower = EnemyScriptableObject.DamageToGreatTower + EnemyUpgradeScriptableObject.DamageToGreatTower;
@@ -50,8 +49,9 @@ public class Enemy : MonoBehaviour
     {
         if(!IsAlive)
         {
-            go_restart.GetComponent<GameInit>().killEnemy++;
+            gameInit.GetComponent<GameInit>().killEnemy++;
             player.GetComponent<GreatTower>().Gold(goldPerKill);
+            gameInit.GetComponent<GameInit>().enemies.Remove(gameObject);
             Destroy(this.gameObject);
         }
     }

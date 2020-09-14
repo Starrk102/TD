@@ -9,6 +9,7 @@ public class Tower : MonoBehaviour
     private Transform target;
 
     private GameObject greatTower;
+    private GameObject gameInit;
 
     private float damageTower;
     private float fireRate;
@@ -21,11 +22,11 @@ public class Tower : MonoBehaviour
         fireRate = TowerScriptableObject.DamagePerSecondTower;
         damageTower = TowerScriptableObject.DamageTower;
         greatTower = GameObject.FindGameObjectWithTag("GreatTower");
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        gameInit = GameObject.FindGameObjectWithTag("GameController");
     }
     private void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        var enemies = gameInit.GetComponent<GameInit>().enemies;
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
         foreach(GameObject enemy in enemies)
@@ -50,7 +51,9 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
-        if(target == null)
+        UpdateTarget();
+
+        if (target == null)
         {
             return;
         }

@@ -14,6 +14,8 @@ public class GameInit : MonoBehaviour
     private int waveNumber;
     public int killEnemy;
     private bool NoSpawnEnemy;
+    public List<GameObject> enemies;
+    private GameObject enemy;
 
     private void Awake()
     {
@@ -32,11 +34,13 @@ public class GameInit : MonoBehaviour
         EnemyUpgradeScriptableObject.DamageToGreatTower = 0;
         countdown = 1.0f;
         waveNumber = 1;
-        InvokeRepeating("CheckEnemy", 0, 1f);
     }
 
     private void Update()
     {
+        Debug.Log(enemies.Count);
+        CheckEnemy(enemies);
+
         if (countdown <= 0.0f && NoSpawnEnemy == true)
         {
             StartCoroutine(SpawnWave());
@@ -55,14 +59,13 @@ public class GameInit : MonoBehaviour
 
         var MaxCountEnemy = waveNumber + 3;
         var RandomMaxCountWave = Random.Range(waveNumber, MaxCountEnemy);
-
         for (int i = 0; i < RandomMaxCountWave; i++)
         {
             SpawnEnemy();
+            enemies.Add(enemy);
             yield return new WaitForSeconds(0.5f);
         }
         waveNumber++;
-
     }
 
     void UpdateEnemyToWave()
@@ -74,14 +77,12 @@ public class GameInit : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(EnemyScriptableObject.Obj, SpawnPoint.position, SpawnPoint.rotation);
+        enemy = Instantiate(EnemyScriptableObject.Obj, SpawnPoint.position, SpawnPoint.rotation);
     }
 
-    bool CheckEnemy()
+    bool CheckEnemy(List<GameObject> gameObjects)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        
-        if (enemies.Length == 0)
+        if (gameObjects.Count == 0)
         {
             return NoSpawnEnemy = true;
         }
